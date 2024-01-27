@@ -1,0 +1,18 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "people.js",
+  "keywords": [
+    "express",
+    "mysql",
+    "gerador-nome"
+  ],
+  "author": "Fernando Rodrigues Teles",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.2",
+    "mysql": "2.18.1",
+    "gerador-nome":"0.0.5"
+  }
+}

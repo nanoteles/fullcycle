@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports: 
+      - '8080:80'
+    depends_on:
+      - node
+    networks:
+      - minharede
+  
+  node:
+    build:
+      context: ./nodejs
+    container_name: node
+    restart: always
+    ports: 
+      - '3000:3000'
+    tty: true
+    depends_on: 
+      - mysql
+    networks:
+      - minharede
+
+  mysql:
+    build: 
+      context: ./mysql
+    container_name: mysql
+    restart: always
+    ports: 
+      - '3306:3306'
+    tty: true
+    networks:
+      - minharede
+    volumes:
+      - ./mysql/volume:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=fullcycle
+      - MYSQL_ROOT_PASSWORD=admusr
+      - MYSQL_USER=admusr
+      - MYSQL_PASSWORD=admusr
+
+networks:
+  minharede:
+    driver: bridge
