@@ -1,15 +1,14 @@
 FROM node
 
-RUN mkdir -p /opt/app
-
 WORKDIR /opt/app
 
-COPY package*.json ./
+ENV DOCKERIZE_VERSION v0.7.0
 
-COPY people.js ./
-
-RUN npm install
+RUN apt-get update \
+    && apt-get install -y wget \
+    && wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin \
+    && apt-get autoremove -yqq --purge wget && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 3000
 
-CMD [ "node", "people.js"]
+CMD ["node", "people.js"]
