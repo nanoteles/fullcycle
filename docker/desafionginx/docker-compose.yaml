@@ -18,7 +18,8 @@ services:
     build:
       context: ./nodejs
     container_name: node
-    command: dockerize -wait tcp://mysql:3306 -timeout 5s node people.js
+    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 5s docker-entrypoint.sh
+    command: bash -c "npm install && node people.js"
     restart: always
     ports: 
       - '3000:3000'
